@@ -592,7 +592,7 @@ namespace Calcadvanced {
 	String^ oper;
 	String^ str_answer;
 	double around = 10000000000.0;
-	bool cleanNumber = false, swap = false, buttons_lock = false;
+	bool cleanNumber = false, swap = false, buttons_lock = false, need_result = false;
 
 	private: System::Void swapping() {
 		int temp = save;
@@ -637,50 +637,7 @@ namespace Calcadvanced {
 		buttons_lock = false;
 	}
 
-	private: System::Void addNumber_Click(System::Object^ sender, System::EventArgs^ e) {
-		Button^ Numbers = safe_cast<Button^>(sender);
-		lblWarning->Text = "";
-		if (buttons_lock) {
-			UnlockAndClear();
-		}
-
-		if (textBox1->Text->Length < 19) {
-			if (textBox1->Text == "0" || cleanNumber) {
-				textBox1->Text = Numbers->Text;
-				cleanNumber = false;
-			}
-			else {
-				textBox1->Text += Numbers->Text;
-			}
-		}
-		else {
-			lblWarning->Text = "Переполнение";
-		}
-
-		Number = Convert::ToDouble(textBox1->Text);
-	}
-
-	private: System::Void EnterOperator(System::Object^ sender, System::EventArgs^ e) {
-		Button^ NumbersOperator = safe_cast<Button^>(sender);
-		lblWarning->Text = "";
-		oper = NumbersOperator->Text;
-		cleanNumber = true;
-		swap = true;
-		save = Convert::ToDouble(textBox1->Text);
-
-	}
-
-	private: System::Void EnterDot(System::Object^ sender, System::EventArgs^ e) {
-		lblWarning->Text = "";
-
-		if (!textBox1->Text->Contains(",") ) {
-			textBox1->Text += ",";
-		}
-	}
-
-	private: System::Void btnResult_Click(System::Object^ sender, System::EventArgs^ e) {
-		lblWarning->Text = "";
-	
+	void get_result() {
 		str_answer = Convert::ToString(Number * Number); // переполнение при умножении и сложении
 		if (str_answer->Length < 21) {
 			if (swap) {
@@ -717,7 +674,60 @@ namespace Calcadvanced {
 		else {
 			lblWarning->Text = "Превышено максимально допустимое значение числа";
 			lock_buttons();
-		}		
+		}
+	}
+
+	private: System::Void addNumber_Click(System::Object^ sender, System::EventArgs^ e) {
+		Button^ Numbers = safe_cast<Button^>(sender);
+		lblWarning->Text = "";
+		if (buttons_lock) {
+			UnlockAndClear();
+		}
+
+		if (textBox1->Text->Length < 19) {
+			if (textBox1->Text == "0" || cleanNumber) {
+				textBox1->Text = Numbers->Text;
+				cleanNumber = false;
+			}
+			else {
+				textBox1->Text += Numbers->Text;
+			}
+		}
+		else {
+			lblWarning->Text = "Переполнение";
+		}
+
+		Number = Convert::ToDouble(textBox1->Text);
+	}
+
+	private: System::Void EnterOperator(System::Object^ sender, System::EventArgs^ e) {
+		Button^ NumbersOperator = safe_cast<Button^>(sender);
+		lblWarning->Text = "";
+		if (need_result) {
+			get_result();
+			need_result = false;
+		}
+		oper = NumbersOperator->Text;
+		save = Convert::ToDouble(textBox1->Text);
+		cleanNumber = true;
+		swap = true;
+		need_result = true;
+
+	}
+
+	private: System::Void EnterDot(System::Object^ sender, System::EventArgs^ e) {
+		lblWarning->Text = "";
+
+		if (!textBox1->Text->Contains(",") ) {
+			textBox1->Text += ",";
+		}
+	}
+
+	private: System::Void btnResult_Click(System::Object^ sender, System::EventArgs^ e) {
+		lblWarning->Text = "";
+	
+		get_result();
+		need_result = false;
 	}
 
 	private: System::Void Dropping(System::Object^ sender, System::EventArgs^ e) {
