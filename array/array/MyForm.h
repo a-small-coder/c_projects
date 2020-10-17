@@ -618,15 +618,16 @@ namespace array {
 			}
 			// ошибки при чтении массива
 			else {
-				txtResult->Text = "Ошибка при чтении массива";
+				System::Windows::Forms::DialogResult result = MessageBox::Show("Неверный ввод массива", \
+					"Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			
 
 			delete[] arr;
 		}
 		else {
-			txtArray->Text = "Сгенерируйте или введите массив";
-			txtResult->Text = "Ошибка выполнения: массив не ввееден";
+			System::Windows::Forms::DialogResult result = MessageBox::Show("Массив не ввееден \n Сгенерируйте или введите массив", \
+				"Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 	}
 
@@ -643,49 +644,61 @@ namespace array {
 	private: System::Void btnGeneration_Click(System::Object^ sender, System::EventArgs^ e) {
 		srand(static_cast<unsigned int>(time(NULL)));
 		txtResult->Text = "";
+		String^ text;
 		// считывание или генерация характеристик массива
 		if (txtArraySize->Text->Length > 0) {
 			try {
 				array_size = Convert::ToInt32(txtArraySize->Text);
 				min_value = Convert::ToInt32(txtMinNumber->Text);
 				max_value = Convert::ToInt32(txtMaxNumber->Text);
+				
+				is_right_generation_data = true;
 				if (array_size < 1) {
 					is_right_generation_data = false;
-					txtArray->Text = "Количество элементов массива должно быть больше 0";
+					text = "Количество элементов массива\nдолжно быть больше 0";
 				}
-				else if (array_size > MAXARRAYSIZE) {
+				if (array_size > MAXARRAYSIZE) {
 					is_right_generation_data = false;
-					txtArray->Text = "Количество элементов массива должно быть меньше " + Convert::ToString(MAXARRAYSIZE);
+					text = "Количество элементов массива\nдолжно быть меньше " + Convert::ToString(MAXARRAYSIZE);
 				}
-				else if (min_value > max_value) {
+				if (min_value > max_value) {
 					is_right_generation_data = false;
-					txtArray->Text = "Минимальное значение должно быть меньше максимального";
+					text = "Минимальное значение\nдолжно быть меньше максимального";
+
 				}
-				else if (min_value < MINVALUE) {
+				if (min_value < MINVALUE) {
 					is_right_generation_data = false;
-					txtArray->Text = "Минимальное значение не должно быть меньше " + Convert::ToString(MINVALUE);
+					text = "Минимальное значение\nне должно быть меньше " + Convert::ToString(MINVALUE);
 				}
 
-				else if (max_value > MAXVALUE) {
+				if (max_value > MAXVALUE) {
 					is_right_generation_data = false;
-					txtArray->Text = "Максимальное значение не должно быть больше " + Convert::ToString(MAXVALUE);
+					text = "Максимальное значение\nне должно быть больше " + Convert::ToString(MAXVALUE);
 				}
-				else
-					is_right_generation_data = true;
+				if (txtArraySize->Text->Length == 0 || txtMaxNumber->Text->Length == 0 || txtMinNumber->Text->Length == 0) {
+					is_right_generation_data = false;
+					text = "Значения для генерации не заданы";
+				}
+					
 			}
 			catch (...) {
-				txtArray->Text = "Недопустимый тип исходных данных";
 				is_right_generation_data = false;
 			}
 		}
 		else {
-			array_size = rrand(1, MAXARRAYSIZE);
-			min_value = rrand(MINVALUE, 0);
-			max_value = rrand(0, MAXVALUE);
-			txtArraySize->Text = Convert::ToString(array_size);
-			txtMaxNumber->Text = Convert::ToString(max_value);
-			txtMinNumber->Text = Convert::ToString(min_value);
-			is_right_generation_data = true;
+			if (txtArraySize->Text->Length == 0 || txtMaxNumber->Text->Length == 0 || txtMinNumber->Text->Length == 0) {
+				is_right_generation_data = false;
+				text = "Значения для генерации не заданы";
+			}
+			else {
+				array_size = rrand(1, MAXARRAYSIZE);
+				min_value = rrand(MINVALUE, 0);
+				max_value = rrand(0, MAXVALUE);
+				txtArraySize->Text = Convert::ToString(array_size);
+				txtMaxNumber->Text = Convert::ToString(max_value);
+				txtMinNumber->Text = Convert::ToString(min_value);
+				is_right_generation_data = true;
+			}
 		}
 
 		if (is_right_generation_data) {
@@ -700,7 +713,8 @@ namespace array {
 			delete[] arr;
 		}
 		else {
-			txtResult->Text = "Ошибка: неверные данные для генерации.";
+			text = "Неверные данные для генерации\n" + text;
+			System::Windows::Forms::DialogResult result = MessageBox::Show(text, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 		
 	}
