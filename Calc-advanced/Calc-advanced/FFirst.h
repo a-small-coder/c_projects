@@ -637,42 +637,6 @@ namespace Calcadvanced {
 		buttons_lock = false;
 	}
 
-	private: System::Void get_result() {
-		str_answer = Convert::ToString(Number * Number); // переполнение при умножении и сложении
-		if (str_answer->Length < 21) {
-			if (oper == "+") {
-				result = save + Number;
-				textBox1->Text = Convert::ToString(result);
-				Number = result;
-			}
-			if (oper == "-") {
-				result = save - Number;
-				textBox1->Text = Convert::ToString(result);
-				Number = result;
-			}
-			if (oper == "*") {
-				result = Number * save;
-				textBox1->Text = Convert::ToString(result);
-				Number = result;
-			}
-			if (oper == "/") {
-				if (Number != 0) {
-					result = save / Number;
-					textBox1->Text = Convert::ToString(result);
-					Number = result;
-				}
-				else {
-					lblWarning->Text = "Деление на ноль невозможно";
-					textBox1->Text = "";
-					lock_buttons();
-				}
-			}
-		}
-		else {
-			lblWarning->Text = "Превышено максимально допустимое значение числа";
-			lock_buttons();
-		}
-	}
 	private: System::Void addNumber_Click(System::Object^ sender, System::EventArgs^ e) {
 		Button^ Numbers = safe_cast<Button^>(sender);
 		lblWarning->Text = "";
@@ -701,7 +665,7 @@ namespace Calcadvanced {
 		lblWarning->Text = "";
 		oper = NumbersOperator->Text;
 		cleanNumber = true;
-		swapping();
+		swap = true;
 		save = Convert::ToDouble(textBox1->Text);
 
 	}
@@ -717,7 +681,43 @@ namespace Calcadvanced {
 	private: System::Void btnResult_Click(System::Object^ sender, System::EventArgs^ e) {
 		lblWarning->Text = "";
 	
-		get_result();
+		str_answer = Convert::ToString(Number * Number); // переполнение при умножении и сложении
+		if (str_answer->Length < 21) {
+			if (swap) {
+				swapping();
+			}
+			if (oper == "+") {
+				result = Number + save;
+				textBox1->Text = Convert::ToString(result);
+				Number = result;
+			}
+			if (oper == "-") {
+				result = Number - save;
+				textBox1->Text = Convert::ToString(result);
+				Number = result;
+			}
+			if (oper == "*") {
+				result = Number * save;
+				textBox1->Text = Convert::ToString(result);
+				Number = result;
+			}
+			if (oper == "/") {
+				if (save != 0) {
+					result = Number / save;
+					textBox1->Text = Convert::ToString(result);
+					Number = result;
+				}
+				else {
+					lblWarning->Text = "Деление на ноль невозможно";
+					textBox1->Text = "";
+					lock_buttons();
+				}
+			}
+		}
+		else {
+			lblWarning->Text = "Превышено максимально допустимое значение числа";
+			lock_buttons();
+		}		
 	}
 
 	private: System::Void Dropping(System::Object^ sender, System::EventArgs^ e) {
