@@ -592,7 +592,7 @@ namespace Calcadvanced {
 	String^ oper;
 	String^ str_answer;
 	double around = 10000000000.0;
-	bool cleanNumber = false, swap = false, buttons_lock = false, need_result = false;
+	bool cleanNumber = false, swap = false, buttons_lock = false, need_result = false, oper_repeat = false;
 
 	private: System::Void swapping() {
 		int temp = save;
@@ -633,16 +633,22 @@ namespace Calcadvanced {
 		textBox1->Text = "0";
 		Number = 0;
 		save = 0;
-		oper = "+";
+		oper = "";
+		cleanNumber = false;
+		swap = false;
 		buttons_lock = false;
+		need_result = false;
+		oper_repeat = false;
 	}
 
 	void get_result() {
+		oper_repeat = false;
 		str_answer = Convert::ToString(Number * Number); // переполнение при умножении и сложении
 		if (str_answer->Length < 21) {
 			if (swap) {
 				swapping();
 			}
+			lblWarning->Text = Convert::ToString(Number) + oper + Convert::ToString(save);
 			if (oper == "+") {
 				result = Number + save;
 				textBox1->Text = Convert::ToString(result);
@@ -680,6 +686,7 @@ namespace Calcadvanced {
 	private: System::Void addNumber_Click(System::Object^ sender, System::EventArgs^ e) {
 		Button^ Numbers = safe_cast<Button^>(sender);
 		lblWarning->Text = "";
+		oper_repeat = false;
 		if (buttons_lock) {
 			UnlockAndClear();
 		}
@@ -703,15 +710,21 @@ namespace Calcadvanced {
 	private: System::Void EnterOperator(System::Object^ sender, System::EventArgs^ e) {
 		Button^ NumbersOperator = safe_cast<Button^>(sender);
 		lblWarning->Text = "";
-		if (need_result) {
-			get_result();
-			need_result = false;
+		if (oper == NumbersOperator->Text) {
+			oper_repeat = true;
 		}
-		oper = NumbersOperator->Text;
-		save = Convert::ToDouble(textBox1->Text);
-		cleanNumber = true;
-		swap = true;
-		need_result = true;
+		if (!oper_repeat || !cleanNumber) {
+			if (need_result) {
+				get_result();
+				need_result = false;
+			}
+			oper = NumbersOperator->Text;
+			save = Convert::ToDouble(textBox1->Text);
+			cleanNumber = true;
+			swap = true;
+			need_result = true;
+		}
+		
 
 	}
 
