@@ -592,10 +592,10 @@ namespace Calcadvanced {
 	String^ oper;
 	String^ str_answer;
 	double around = 10000000000.0;
-	bool cleanNumber = false, swap = false, buttons_lock = false, need_result = false, oper_repeat = false;
+	bool buttons_lock = false, need_result = false, need_chislo2 = false, swap = false;;
 
 	private: System::Void swapping() {
-		int temp = save;
+		double temp = save;
 		save = Number;
 		Number = temp;
 		swap = false;
@@ -634,21 +634,21 @@ namespace Calcadvanced {
 		Number = 0;
 		save = 0;
 		oper = "";
-		cleanNumber = false;
-		swap = false;
 		buttons_lock = false;
 		need_result = false;
-		oper_repeat = false;
+		need_chislo2 = false;
+		swap = false;
 	}
 
 	void get_result() {
-		oper_repeat = false;
+		need_result = false;
+		need_chislo2 = false;
 		str_answer = Convert::ToString(Number * Number); // переполнение при умножении и сложении
 		if (str_answer->Length < 21) {
+			lblWarning->Text = Convert::ToString(Number) + oper + Convert::ToString(save);
 			if (swap) {
 				swapping();
 			}
-			lblWarning->Text = Convert::ToString(Number) + oper + Convert::ToString(save);
 			if (oper == "+") {
 				result = Number + save;
 				textBox1->Text = Convert::ToString(result);
@@ -686,15 +686,14 @@ namespace Calcadvanced {
 	private: System::Void addNumber_Click(System::Object^ sender, System::EventArgs^ e) {
 		Button^ Numbers = safe_cast<Button^>(sender);
 		lblWarning->Text = "";
-		oper_repeat = false;
 		if (buttons_lock) {
 			UnlockAndClear();
 		}
 
 		if (textBox1->Text->Length < 19) {
-			if (textBox1->Text == "0" || cleanNumber) {
+			if (textBox1->Text == "0" || need_chislo2) {
 				textBox1->Text = Numbers->Text;
-				cleanNumber = false;
+				need_chislo2 = false;
 			}
 			else {
 				textBox1->Text += Numbers->Text;
@@ -710,6 +709,9 @@ namespace Calcadvanced {
 	private: System::Void EnterOperator(System::Object^ sender, System::EventArgs^ e) {
 		Button^ NumbersOperator = safe_cast<Button^>(sender);
 		lblWarning->Text = "";
+		/*if (swap) {
+			swapping();
+		}
 		if (oper == NumbersOperator->Text) {
 			oper_repeat = true;
 		}
@@ -723,6 +725,27 @@ namespace Calcadvanced {
 			cleanNumber = true;
 			swap = true;
 			need_result = true;
+		}*/
+		if (need_chislo2) {
+			oper = NumbersOperator->Text;
+		}
+		else {
+			if (need_result) {
+				get_result();
+				oper = NumbersOperator->Text;
+				save = Convert::ToDouble(textBox1->Text);
+				need_result = true;
+				need_chislo2 = true;
+				swap = true;
+			}
+			else {
+				oper = NumbersOperator->Text;
+				save = Convert::ToDouble(textBox1->Text);
+				lblWarning->Text = Convert::ToString(save);
+				need_result = true;
+				need_chislo2 = true;
+				swap = true;
+			}
 		}
 		
 
@@ -740,7 +763,6 @@ namespace Calcadvanced {
 		lblWarning->Text = "";
 	
 		get_result();
-		need_result = false;
 	}
 
 	private: System::Void Dropping(System::Object^ sender, System::EventArgs^ e) {
