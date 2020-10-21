@@ -505,28 +505,20 @@ namespace workwitharray {
 			String^ array_str = txtArray->Text;
 			// определение размера введенного массива
 			input_array_size = 0;
-			String^ sub_text = "1234567890.-";
-			String^ nesub_text = ", ;";
-			int i = 0, first_number = array_str->Length;
+			array_size = 0;
+			int i = 0;
 
 			while (i < array_str->Length) {
-				if (i < first_number) {
-					if (sub_cikl(sub_text, array_str, i)) {
-						first_number = i;
-						input_array_size++;
-					}
+				if (array_str[i] == ' ') {
+					input_array_size+=1;
 				}
-				else {
-					if (sub_cikl(nesub_text, array_str, i)) {
-						first_number = array_str->Length;
-					}
-				}
-				i++;
+				i+=1;
 			}
-
-			if (input_array_size > 0) {
-				return true;
+			if (input_array_size == 0) {
+				return false;
 			}
+			array_size = input_array_size + 1;
+			return true;
 		}
 		else {
 			return false;
@@ -661,39 +653,30 @@ namespace workwitharray {
 
 	private: System::Void btnDoIt_Click(System::Object^ sender, System::EventArgs^ e) {
 		txtResult->Text = "";
-		if (!IsArrayInput()) {
-			misstake_alert("Массив не введен\nВведите или сгенерируйте массив");
+		String^ array_str = txtArray->Text;
+		if (IsArrayInput()) {
+			misstake_alert("Массив не введен\nВведите или сгенерируйте массив" + "\n" + array_str + "\n" + Convert::ToString(array_size));
 		}
 		else {
-			String^ array_str = txtArray->Text;
-			String^ nesub_text = ", ;";
-			String^ sub_text = "1234567890.-";
 			int* arr = new int[array_size];
 			int start_i = 0, count_numbers = 0;
 			int i = 0, first_number = array_str->Length;
 
 			while (i < array_str->Length) {
-				if (i < first_number) {
-					if (sub_cikl(sub_text, array_str, i)) {
-						first_number = i;
-						input_array_size++;
-						start_i = i;
-					}
-				}
-				else {
-					if (sub_cikl(nesub_text, array_str, i)) {
-						first_number = array_str->Length;
+				if (array_str[i] == ' '){
+					if (start_i != i) {
 						try {
 							arr[count_numbers] = Convert::ToInt32(array_str->Substring(start_i, i - start_i));
-							count_numbers += 1;
-
 						}
 						catch (...) {
 							misstake_alert("Массив введен неверно");
 							break;
 							return;
 						}
+						count_numbers++;
+						start_i = i + 1;
 					}
+					
 				}
 				i++;
 			}

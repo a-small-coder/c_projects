@@ -645,7 +645,7 @@ namespace Calcadvanced {
 		need_chislo2 = false;
 		str_answer = Convert::ToString(Number * Number); // переполнение при умножении и сложении
 		if (str_answer->Length < 21) {
-			lblWarning->Text = Convert::ToString(Number) + oper + Convert::ToString(save);
+			lblWarning->Text = "";
 			if (swap) {
 				swapping();
 			}
@@ -709,23 +709,6 @@ namespace Calcadvanced {
 	private: System::Void EnterOperator(System::Object^ sender, System::EventArgs^ e) {
 		Button^ NumbersOperator = safe_cast<Button^>(sender);
 		lblWarning->Text = "";
-		/*if (swap) {
-			swapping();
-		}
-		if (oper == NumbersOperator->Text) {
-			oper_repeat = true;
-		}
-		if (!oper_repeat || !cleanNumber) {
-			if (need_result) {
-				get_result();
-				need_result = false;
-			}
-			oper = NumbersOperator->Text;
-			save = Convert::ToDouble(textBox1->Text);
-			cleanNumber = true;
-			swap = true;
-			need_result = true;
-		}*/
 		if (need_chislo2) {
 			oper = NumbersOperator->Text;
 		}
@@ -741,7 +724,6 @@ namespace Calcadvanced {
 			else {
 				oper = NumbersOperator->Text;
 				save = Convert::ToDouble(textBox1->Text);
-				lblWarning->Text = Convert::ToString(save);
 				need_result = true;
 				need_chislo2 = true;
 				swap = true;

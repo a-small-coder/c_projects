@@ -137,7 +137,7 @@ namespace calc_exp {
 			this->groupBox1->Size = System::Drawing::Size(383, 100);
 			this->groupBox1->TabIndex = 1;
 			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"¬вод значени€’ (-13 <= X <= 20)";
+			this->groupBox1->Text = L"¬вод значени€’ (-13 <= X < 20)";
 			// 
 			// inputField
 			// 
@@ -148,9 +148,9 @@ namespace calc_exp {
 			this->inputField->Name = L"inputField";
 			this->inputField->Size = System::Drawing::Size(305, 27);
 			this->inputField->TabIndex = 2;
-			this->inputField->Text = L"1";
 			this->inputField->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->inputField->TextChanged += gcnew System::EventHandler(this, &MyForm::inputField_CheckedChanged);
+			this->inputField->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::Input_KeyPress);
 			// 
 			// label2
 			// 
@@ -345,9 +345,9 @@ namespace calc_exp {
 				static_cast<System::Byte>(204)));
 			this->lblSum->Location = System::Drawing::Point(235, 450);
 			this->lblSum->Name = L"lblSum";
-			this->lblSum->Size = System::Drawing::Size(16, 18);
+			this->lblSum->Size = System::Drawing::Size(20, 18);
 			this->lblSum->TabIndex = 14;
-			this->lblSum->Text = L"1";
+			this->lblSum->Text = L"...";
 			// 
 			// lblCount
 			// 
@@ -356,9 +356,9 @@ namespace calc_exp {
 				static_cast<System::Byte>(204)));
 			this->lblCount->Location = System::Drawing::Point(235, 425);
 			this->lblCount->Name = L"lblCount";
-			this->lblCount->Size = System::Drawing::Size(16, 18);
+			this->lblCount->Size = System::Drawing::Size(20, 18);
 			this->lblCount->TabIndex = 13;
-			this->lblCount->Text = L"1";
+			this->lblCount->Text = L"...";
 			// 
 			// lblResult
 			// 
@@ -367,9 +367,9 @@ namespace calc_exp {
 				static_cast<System::Byte>(204)));
 			this->lblResult->Location = System::Drawing::Point(235, 400);
 			this->lblResult->Name = L"lblResult";
-			this->lblResult->Size = System::Drawing::Size(16, 18);
+			this->lblResult->Size = System::Drawing::Size(20, 18);
 			this->lblResult->TabIndex = 12;
-			this->lblResult->Text = L"1";
+			this->lblResult->Text = L"...";
 			// 
 			// lblEps
 			// 
@@ -389,9 +389,9 @@ namespace calc_exp {
 				static_cast<System::Byte>(204)));
 			this->lblStartX->Location = System::Drawing::Point(235, 350);
 			this->lblStartX->Name = L"lblStartX";
-			this->lblStartX->Size = System::Drawing::Size(16, 18);
+			this->lblStartX->Size = System::Drawing::Size(20, 18);
 			this->lblStartX->TabIndex = 10;
-			this->lblStartX->Text = L"1";
+			this->lblStartX->Text = L"...";
 			// 
 			// button2
 			// 
@@ -447,7 +447,7 @@ namespace calc_exp {
 		invalidInput = false;
 		try {
 			inputNumber = Convert::ToDouble(inputField->Text);
-			if (inputNumber < -13 || inputNumber > 20) {
+			if (inputNumber < -13 || inputNumber > 19) {
 				throw - 1;
 			}
 		}
@@ -476,31 +476,6 @@ namespace calc_exp {
 			lblStartX->Text = Convert::ToString(inputNumber);
 			lblCount->Text = Convert::ToString(countSum);
 			lblSum->Text = Convert::ToString(summa);
-			/*String^ summa_string = Convert::ToString(summa);
-			String^ result_string = Convert::ToString(result);
-			for (int i = 0; i <= Convert::ToString(eps)->Length; i++) {
-				if (i > summa_string->Length) 
-					summa_string += '0';
-				
-			}
-			lblStartX->Text = Convert::ToString(inputNumber);
-			lblResult->Text = result_string->Substring(0, result_string->Length - 1);
-			int sslen = result_string->Length;
-			int roundnumber = Convert::ToInt32(summa_string[sslen - 3]);
-			String^ fixnumber;
-			if (summa_string[sslen - 1] > 4) {
-				fixnumber  = Convert::ToString(roundnumber + 1);
-			}
-			else {
-				fixnumber = Convert::ToString(roundnumber);
-			}
-			summa_string = summa_string->Substring(0, sslen) + fixnumber;
-			if (inputNumber == 0) {
-				lblHead->Text = "exp(x) = 1 + x/1!";
-			}
-			lblCount->Text = Convert::ToString(countSum);
-			lblSum->Text = summa_string;
-			*/
 		}
 	}
 	private: System::Void RBtn_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -519,6 +494,23 @@ namespace calc_exp {
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
+	}
+
+
+	private: System::Void Input_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		TextBox^ TextBoxField = safe_cast<TextBox^>(sender);
+		int len;
+		len = TextBoxField->Text->Length;
+		char ckey = e->KeyChar;
+		int ikey = e->KeyChar;
+		if (ckey != '\b' && (((ikey < 48 || ikey > 57) && ckey != '-') || (len == 3 && TextBoxField->Text->Contains("-")) || (len == 2 && !TextBoxField->Text->Contains("-")))) {
+			e->Handled = true;
+		}
+		if (ckey == '-' && TextBoxField->Text->Contains("-") || (len != 0 && ckey == '-')) {
+			e->Handled = true;
+		}
+
+
 	}
 };
 }

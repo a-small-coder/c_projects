@@ -115,9 +115,11 @@ namespace ValueChange {
 			this->groupBox1->Controls->Add(this->txtValue);
 			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBox1->Location = System::Drawing::Point(15, 15);
+			this->groupBox1->Location = System::Drawing::Point(20, 18);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(300, 115);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
+			this->groupBox1->Size = System::Drawing::Size(400, 142);
 			this->groupBox1->TabIndex = 0;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Исходные данные";
@@ -127,9 +129,10 @@ namespace ValueChange {
 			this->lblCurs->AutoSize = true;
 			this->lblCurs->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->lblCurs->Location = System::Drawing::Point(15, 81);
+			this->lblCurs->Location = System::Drawing::Point(20, 100);
+			this->lblCurs->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->lblCurs->Name = L"lblCurs";
-			this->lblCurs->Size = System::Drawing::Size(143, 16);
+			this->lblCurs->Size = System::Drawing::Size(182, 20);
 			this->lblCurs->TabIndex = 3;
 			this->lblCurs->Text = L"Курс обмена (руб./$):";
 			// 
@@ -138,9 +141,10 @@ namespace ValueChange {
 			this->lblValue->AutoSize = true;
 			this->lblValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->lblValue->Location = System::Drawing::Point(15, 40);
+			this->lblValue->Location = System::Drawing::Point(20, 49);
+			this->lblValue->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->lblValue->Name = L"lblValue";
-			this->lblValue->Size = System::Drawing::Size(143, 16);
+			this->lblValue->Size = System::Drawing::Size(182, 20);
 			this->lblValue->TabIndex = 2;
 			this->lblValue->Text = L"Сумма конвертации:";
 			// 
@@ -149,10 +153,12 @@ namespace ValueChange {
 			this->txtCurs->BackColor = System::Drawing::SystemColors::Control;
 			this->txtCurs->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->txtCurs->Location = System::Drawing::Point(160, 78);
+			this->txtCurs->Location = System::Drawing::Point(213, 96);
+			this->txtCurs->Margin = System::Windows::Forms::Padding(4);
 			this->txtCurs->Name = L"txtCurs";
-			this->txtCurs->Size = System::Drawing::Size(130, 22);
+			this->txtCurs->Size = System::Drawing::Size(172, 26);
 			this->txtCurs->TabIndex = 1;
+			this->txtCurs->Text = L"79,89";
 			this->txtCurs->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->txtCurs->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Ffirst::Input_KeyPress);
 			// 
@@ -161,9 +167,10 @@ namespace ValueChange {
 			this->txtValue->BackColor = System::Drawing::SystemColors::Control;
 			this->txtValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->txtValue->Location = System::Drawing::Point(160, 37);
+			this->txtValue->Location = System::Drawing::Point(213, 46);
+			this->txtValue->Margin = System::Windows::Forms::Padding(4);
 			this->txtValue->Name = L"txtValue";
-			this->txtValue->Size = System::Drawing::Size(130, 22);
+			this->txtValue->Size = System::Drawing::Size(172, 26);
 			this->txtValue->TabIndex = 0;
 			this->txtValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->txtValue->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Ffirst::Input_KeyPress);
@@ -178,9 +185,11 @@ namespace ValueChange {
 			this->groupBox2->Controls->Add(this->txtStartValue);
 			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBox2->Location = System::Drawing::Point(15, 136);
+			this->groupBox2->Location = System::Drawing::Point(20, 167);
+			this->groupBox2->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(300, 80);
+			this->groupBox2->Padding = System::Windows::Forms::Padding(4);
+			this->groupBox2->Size = System::Drawing::Size(400, 98);
 			this->groupBox2->TabIndex = 4;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Исходные данные";
@@ -190,10 +199,11 @@ namespace ValueChange {
 			this->txtResultValue->BackColor = System::Drawing::SystemColors::Control;
 			this->txtResultValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->txtResultValue->Location = System::Drawing::Point(163, 40);
+			this->txtResultValue->Location = System::Drawing::Point(217, 49);
+			this->txtResultValue->Margin = System::Windows::Forms::Padding(4);
 			this->txtResultValue->Name = L"txtResultValue";
 			this->txtResultValue->ReadOnly = true;
-			this->txtResultValue->Size = System::Drawing::Size(90, 22);
+			this->txtResultValue->Size = System::Drawing::Size(119, 26);
 			this->txtResultValue->TabIndex = 2;
 			this->txtResultValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -202,9 +212,10 @@ namespace ValueChange {
 			this->lblResultValue->AutoSize = true;
 			this->lblResultValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->lblResultValue->Location = System::Drawing::Point(255, 43);
+			this->lblResultValue->Location = System::Drawing::Point(340, 53);
+			this->lblResultValue->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->lblResultValue->Name = L"lblResultValue";
-			this->lblResultValue->Size = System::Drawing::Size(35, 16);
+			this->lblResultValue->Size = System::Drawing::Size(41, 20);
 			this->lblResultValue->TabIndex = 6;
 			this->lblResultValue->Text = L"руб.";
 			// 
@@ -213,9 +224,10 @@ namespace ValueChange {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label4->Location = System::Drawing::Point(147, 43);
+			this->label4->Location = System::Drawing::Point(196, 53);
+			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(15, 16);
+			this->label4->Size = System::Drawing::Size(19, 20);
 			this->label4->TabIndex = 5;
 			this->label4->Text = L"=";
 			// 
@@ -224,9 +236,10 @@ namespace ValueChange {
 			this->lblStartValue->AutoSize = true;
 			this->lblStartValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->lblStartValue->Location = System::Drawing::Point(109, 43);
+			this->lblStartValue->Location = System::Drawing::Point(145, 53);
+			this->lblStartValue->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->lblStartValue->Name = L"lblStartValue";
-			this->lblStartValue->Size = System::Drawing::Size(35, 16);
+			this->lblStartValue->Size = System::Drawing::Size(41, 20);
 			this->lblStartValue->TabIndex = 4;
 			this->lblStartValue->Text = L"руб.";
 			// 
@@ -235,10 +248,11 @@ namespace ValueChange {
 			this->txtStartValue->BackColor = System::Drawing::SystemColors::Control;
 			this->txtStartValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->txtStartValue->Location = System::Drawing::Point(18, 40);
+			this->txtStartValue->Location = System::Drawing::Point(24, 49);
+			this->txtStartValue->Margin = System::Windows::Forms::Padding(4);
 			this->txtStartValue->Name = L"txtStartValue";
 			this->txtStartValue->ReadOnly = true;
-			this->txtStartValue->Size = System::Drawing::Size(90, 22);
+			this->txtStartValue->Size = System::Drawing::Size(119, 26);
 			this->txtStartValue->TabIndex = 0;
 			this->txtStartValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -250,9 +264,11 @@ namespace ValueChange {
 			this->groupBox3->Controls->Add(this->RbtnDolRub);
 			this->groupBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBox3->Location = System::Drawing::Point(330, 15);
+			this->groupBox3->Location = System::Drawing::Point(440, 18);
+			this->groupBox3->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox3->Name = L"groupBox3";
-			this->groupBox3->Size = System::Drawing::Size(230, 150);
+			this->groupBox3->Padding = System::Windows::Forms::Padding(4);
+			this->groupBox3->Size = System::Drawing::Size(307, 185);
 			this->groupBox3->TabIndex = 5;
 			this->groupBox3->TabStop = false;
 			this->groupBox3->Text = L"Направления ковертации";
@@ -262,11 +278,11 @@ namespace ValueChange {
 			this->RbtnRubEvro->AutoSize = true;
 			this->RbtnRubEvro->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->RbtnRubEvro->Location = System::Drawing::Point(10, 108);
+			this->RbtnRubEvro->Location = System::Drawing::Point(13, 133);
+			this->RbtnRubEvro->Margin = System::Windows::Forms::Padding(4);
 			this->RbtnRubEvro->Name = L"RbtnRubEvro";
-			this->RbtnRubEvro->Size = System::Drawing::Size(118, 22);
+			this->RbtnRubEvro->Size = System::Drawing::Size(149, 28);
 			this->RbtnRubEvro->TabIndex = 3;
-			this->RbtnRubEvro->TabStop = true;
 			this->RbtnRubEvro->Text = L"Рубли в евро";
 			this->RbtnRubEvro->UseVisualStyleBackColor = true;
 			this->RbtnRubEvro->CheckedChanged += gcnew System::EventHandler(this, &Ffirst::RbtnRubEvro_CheckedChanged);
@@ -276,11 +292,11 @@ namespace ValueChange {
 			this->RbtnEvroRub->AutoSize = true;
 			this->RbtnEvroRub->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->RbtnEvroRub->Location = System::Drawing::Point(10, 82);
+			this->RbtnEvroRub->Location = System::Drawing::Point(13, 101);
+			this->RbtnEvroRub->Margin = System::Windows::Forms::Padding(4);
 			this->RbtnEvroRub->Name = L"RbtnEvroRub";
-			this->RbtnEvroRub->Size = System::Drawing::Size(118, 22);
+			this->RbtnEvroRub->Size = System::Drawing::Size(150, 28);
 			this->RbtnEvroRub->TabIndex = 2;
-			this->RbtnEvroRub->TabStop = true;
 			this->RbtnEvroRub->Text = L"Евро в рубли";
 			this->RbtnEvroRub->UseVisualStyleBackColor = true;
 			this->RbtnEvroRub->CheckedChanged += gcnew System::EventHandler(this, &Ffirst::RbtnEvroRub_CheckedChanged);
@@ -288,11 +304,13 @@ namespace ValueChange {
 			// RbtnRubDol
 			// 
 			this->RbtnRubDol->AutoSize = true;
+			this->RbtnRubDol->Checked = true;
 			this->RbtnRubDol->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->RbtnRubDol->Location = System::Drawing::Point(10, 56);
+			this->RbtnRubDol->Location = System::Drawing::Point(13, 69);
+			this->RbtnRubDol->Margin = System::Windows::Forms::Padding(4);
 			this->RbtnRubDol->Name = L"RbtnRubDol";
-			this->RbtnRubDol->Size = System::Drawing::Size(148, 22);
+			this->RbtnRubDol->Size = System::Drawing::Size(182, 28);
 			this->RbtnRubDol->TabIndex = 1;
 			this->RbtnRubDol->TabStop = true;
 			this->RbtnRubDol->Text = L"Рубли в доллары";
@@ -304,11 +322,11 @@ namespace ValueChange {
 			this->RbtnDolRub->AutoSize = true;
 			this->RbtnDolRub->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->RbtnDolRub->Location = System::Drawing::Point(10, 30);
+			this->RbtnDolRub->Location = System::Drawing::Point(13, 37);
+			this->RbtnDolRub->Margin = System::Windows::Forms::Padding(4);
 			this->RbtnDolRub->Name = L"RbtnDolRub";
-			this->RbtnDolRub->Size = System::Drawing::Size(149, 22);
+			this->RbtnDolRub->Size = System::Drawing::Size(183, 28);
 			this->RbtnDolRub->TabIndex = 0;
-			this->RbtnDolRub->TabStop = true;
 			this->RbtnDolRub->Text = L"Доллары в рубли";
 			this->RbtnDolRub->UseVisualStyleBackColor = true;
 			this->RbtnDolRub->CheckedChanged += gcnew System::EventHandler(this, &Ffirst::RbtnDolRub_CheckedChanged);
@@ -317,9 +335,10 @@ namespace ValueChange {
 			// 
 			this->btnConvert->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->btnConvert->Location = System::Drawing::Point(330, 179);
+			this->btnConvert->Location = System::Drawing::Point(440, 220);
+			this->btnConvert->Margin = System::Windows::Forms::Padding(4);
 			this->btnConvert->Name = L"btnConvert";
-			this->btnConvert->Size = System::Drawing::Size(145, 35);
+			this->btnConvert->Size = System::Drawing::Size(193, 43);
 			this->btnConvert->TabIndex = 6;
 			this->btnConvert->Text = L"Конвертировать";
 			this->btnConvert->UseVisualStyleBackColor = true;
@@ -329,9 +348,10 @@ namespace ValueChange {
 			// 
 			this->btnClose->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->btnClose->Location = System::Drawing::Point(481, 179);
+			this->btnClose->Location = System::Drawing::Point(641, 220);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(81, 35);
+			this->btnClose->Size = System::Drawing::Size(108, 43);
 			this->btnClose->TabIndex = 7;
 			this->btnClose->Text = L"Закрыть";
 			this->btnClose->UseVisualStyleBackColor = true;
@@ -339,16 +359,17 @@ namespace ValueChange {
 			// 
 			// Ffirst
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->BackColor = System::Drawing::Color::WhiteSmoke;
-			this->ClientSize = System::Drawing::Size(574, 226);
+			this->ClientSize = System::Drawing::Size(765, 278);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnConvert);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->MaximizeBox = false;
 			this->Name = L"Ffirst";
 			this->Text = L"Обмен валюты";
@@ -362,7 +383,7 @@ namespace ValueChange {
 
 		}
 #pragma endregion
-		const double RUB_TO_DOLLAR = 79.89, RUB_TO_EVRO = 93.58, EVRO_TO_RUB_CELL = 90.56, DOLLAR_TO_RUB_CELL = 77.14;
+	const double RUB_TO_DOLLAR = 79.89, RUB_TO_EVRO = 93.58, EVRO_TO_RUB_CELL = 90.56, DOLLAR_TO_RUB_CELL = 77.14;
 	double startValueNumber, resultValueNumber, curs;
 
 	// перевод введенных данных из строки в числовой тип
@@ -391,12 +412,11 @@ namespace ValueChange {
 			txtResultValue->Text = Convert::ToString(resultValueNumber);
 		}
 		else {
-			System::Windows::Forms::DialogResult result = MessageBox::Show("Введите сумму для конвертации", "Ошибка");
+			System::Windows::Forms::DialogResult result = MessageBox::Show("Введите сумму для конвертации", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 	}
 
 	private: System::Void clear_txtFields() {
-		txtValue->Text = "";
 		txtStartValue->Text = "";
 		txtResultValue->Text = "";
 	}
@@ -424,7 +444,7 @@ namespace ValueChange {
 	private: System::Void RbtnEvroRub_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		clear_txtFields();
 		txtCurs->Text = Convert::ToString(EVRO_TO_RUB_CELL);
-		lblCurs->Text = "Курс обмена (руб./€):";
+		lblCurs->Text = "Курс обмена (€/руб.):";
 		lblStartValue->Text = "€";
 		lblResultValue->Text = "руб.";
 	}
@@ -444,8 +464,16 @@ private: System::Void Input_KeyPress(System::Object^ sender, System::Windows::Fo
 	if (((e->KeyChar < 48 || e->KeyChar > 57) && (e->KeyChar > 44 || e->KeyChar < 44)) && e->KeyChar != '\b') {
 		e->Handled = true;
 	}
-	if (e->KeyChar == 44 && (TextBoxField->Text->Contains(",") || len == 0)) {
-		e->Handled = true;
+	if (e->KeyChar == ',') {
+
+		if (len == 0) {
+			e->Handled = true;
+			TextBoxField->Text = "0,";
+		}
+		else if (TextBoxField->Text->Contains(",")) {
+			e->Handled = true;
+		}
+		
 	}
 		
 }
