@@ -502,23 +502,20 @@ namespace workwitharray {
 	// проверка наличия введенного массива
 	bool IsArrayInput() {
 		if (txtArray->Text->Length > 0) {
-			String^ array_str = txtArray->Text;
-			// определение размера введенного массива
-			input_array_size = 0;
+			String^ array_str;
+			array_str = txtArray->Text + " ";
 			array_size = 0;
-			int i = 0;
-
-			while (i < array_str->Length) {
-				if (array_str[i] == ' ') {
-					input_array_size+=1;
+			for (int i = 0; i < array_str->Length; i++) {
+				if (array_str[i] == ' ' || array_str[i] == ';') {
+					array_size += 1;
 				}
-				i+=1;
 			}
-			if (input_array_size == 0) {
+			if (array_size == 0) {
 				return false;
 			}
-			array_size = input_array_size + 1;
-			return true;
+			else {
+				return true;
+			}
 		}
 		else {
 			return false;
@@ -654,31 +651,46 @@ namespace workwitharray {
 	private: System::Void btnDoIt_Click(System::Object^ sender, System::EventArgs^ e) {
 		txtResult->Text = "";
 		String^ array_str = txtArray->Text;
+		String^ text_message = "";
 		if (IsArrayInput()) {
 			misstake_alert("Массив не введен\nВведите или сгенерируйте массив" + "\n" + array_str + "\n" + Convert::ToString(array_size));
 		}
 		else {
 			int* arr = new int[array_size];
 			int start_i = 0, count_numbers = 0;
+			int end_i = 0;
 			int i = 0, first_number = array_str->Length;
-
-			while (i < array_str->Length) {
-				if (array_str[i] == ' '){
-					if (start_i != i) {
-						try {
-							arr[count_numbers] = Convert::ToInt32(array_str->Substring(start_i, i - start_i));
-						}
-						catch (...) {
-							misstake_alert("Массив введен неверно");
-							break;
-							return;
-						}
-						count_numbers++;
-						start_i = i + 1;
-					}
-					
+			for (int i = array_str->Length - 1; i > 0; i--) {
+				if (array_str[i] == ' ') {
+					array_str = array_str->Substring(0, i);
 				}
-				i++;
+				else {
+					break;
+				}
+			}
+			array_str += " ";
+			for (int i = 0; i < array_str->Length; i++) {
+				if (array_str[i] != ' ') {
+					end_i += 1;
+				}
+				else {
+					try {
+						arr[count_numbers] = Convert::ToInt32(array_str->Substring(start_i, end_i - start_i));
+						if (arr[count_numbers] > MAXVALUE || arr[count_numbers] < MINVALUE) {
+							is_ready_to_work = false;
+							text_message += "Значения элементов массива выходят \nза рамки допустимых значений.";
+						}
+						count_numbers += 1;
+
+					}
+					catch (...) {
+						is_ready_to_work = false;
+						break;
+					}
+					start_i = i + 1;
+					end_i = start_i;
+
+				}
 			}
 
 			summa = 0;

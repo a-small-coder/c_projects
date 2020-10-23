@@ -465,7 +465,7 @@ namespace array {
 		bool check;
 		if (txtArray->Text->Length > 0) {
 			check = true;
-			array_str = txtArray->Text;
+			array_str = txtArray->Text + " ";
 			// определение размера введенного массива
 			input_array_size = 0;
 			for (int i = 0; i < array_str->Length; i++) {
@@ -481,17 +481,18 @@ namespace array {
 		return check;
 	}
 
+	void misstake_alert(String^ text_alert) {
+		System::Windows::Forms::DialogResult result = MessageBox::Show(text_alert, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
+
 	private: System::Void btnDoIt_Click(System::Object^ sender, System::EventArgs^ e) {
 		txtResult->Text = "";
+		String^ text_message = "";
 		// определение характеристик массива
-		try {
+		if (txtArraySize->Text != "" && txtMinNumber->Text != "" && txtMaxNumber->Text != "") {
 			array_size = Convert::ToInt32(txtArraySize->Text);
 			min_value = Convert::ToInt32(txtMinNumber->Text);
 			max_value = Convert::ToInt32(txtMaxNumber->Text);
-			is_array_values_generated = true;
-		}
-		catch (...) {
-			is_array_values_generated = false;
 		}
 		// проверка на наличие массива
 		is_array_input = IsArrayInput();
@@ -502,6 +503,15 @@ namespace array {
 			int* arr = new int[array_size];
 			int start_i = 0, end_i = 0, count_numbers = 0;
 			is_ready_to_work = true;
+			for (int i = array_str->Length - 1; i > 0; i--) {
+				if (array_str[i] == ' ') {
+					array_str = array_str->Substring(0, i);
+				}
+				else {
+					break;
+				}
+			}
+			array_str += " ";
 			for (int i = 0; i < array_str->Length; i++) {
 				if (array_str[i] != ' ') {
 					end_i += 1;
@@ -509,6 +519,10 @@ namespace array {
 				else {
 					try {
 						arr[count_numbers] = Convert::ToInt32(array_str->Substring(start_i, end_i-start_i));
+						if (arr[count_numbers] > MAXVALUE || arr[count_numbers] < MINVALUE) {
+							is_ready_to_work = false;
+							text_message += "Значения элементов массива выходят \nза рамки допустимых значений.";
+						}
 						count_numbers += 1;
 						 
 					}
@@ -530,7 +544,7 @@ namespace array {
 				max_number = MINVALUE;
 				chet_numbers_str = "";
 				nechet_numbers_str = "";
-				for (int i = 0; i < array_size; i++) {
+				for (int i = 0; i < count_numbers; i++) {
 					summa += arr[i];
 					if (arr[i] > max_number)
 						max_number = arr[i];
@@ -546,17 +560,15 @@ namespace array {
 					}
 				}
 				// подстановка характеристик, если массив введен пользователем
-				if (!is_array_values_generated) {
-					txtArraySize->Text = Convert::ToString(array_size);
-					txtMaxNumber->Text = Convert::ToString(max_number + 1);
-					txtMinNumber->Text = Convert::ToString(min_number - 1);
-				}
+				txtArraySize->Text = Convert::ToString(count_numbers);
+				txtMaxNumber->Text = Convert::ToString(max_number + 1);
+				txtMinNumber->Text = Convert::ToString(min_number - 1);
 
 				if (command_str == "Sum") {
 					txtResult->Text = Convert::ToString(summa);
 				}
 				else if (command_str == "Average"){
-					average = float(1.0 * summa / (array_size * 1.0) * 100.0)/100.0;
+					average = float(1.0 * summa / (count_numbers * 1.0) * 100.0)/100.0;
 					txtResult->Text = Convert::ToString(average);
 				}
 				else if (command_str == "Min") {
@@ -579,8 +591,8 @@ namespace array {
 				} 
 				// сортировка по возрастанию
 				else if (command_str == "Sortup") {
-					for (int i = 0; i < array_size; i++) {
-						for (int j = 1; j < (array_size - i); j++) {
+					for (int i = 0; i < count_numbers; i++) {
+						for (int j = 1; j < (count_numbers - i); j++) {
 							if ((arr[j] < arr[j - 1])) {
 
 								int prev;
@@ -591,15 +603,15 @@ namespace array {
 						}
 					}
 					result_str = "";
-					for (int i = 0; i < array_size; i++) {
+					for (int i = 0; i < count_numbers; i++) {
 						result_str += Convert::ToString(arr[i]) + " ";
 					}
 					txtResult->Text = result_str;
 				} 
 				// сортировка по убыванию
 				else if (command_str == "Sortdown") {
-					for (int i = 0; i < array_size; i++) {
-						for (int j = 1; j < (array_size - i); j++) {
+					for (int i = 0; i < count_numbers; i++) {
+						for (int j = 1; j < (count_numbers - i); j++) {
 							if ((arr[j] > arr[j - 1])) {
 
 								int prev;
@@ -610,7 +622,7 @@ namespace array {
 						}
 					}
 					result_str = "";
-					for (int i = 0; i < array_size; i++) {
+					for (int i = 0; i < count_numbers; i++) {
 						result_str += Convert::ToString(arr[i]) + " ";
 					}
 					txtResult->Text = result_str;
@@ -618,7 +630,7 @@ namespace array {
 			}
 			// ошибки при чтении массива
 			else {
-				System::Windows::Forms::DialogResult result = MessageBox::Show("Неверный ввод массива", \
+				System::Windows::Forms::DialogResult result = MessageBox::Show("Неверный ввод массива" + text_message, \
 					"Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			
@@ -688,7 +700,7 @@ namespace array {
 		else {
 			if (txtArraySize->Text->Length == 0 || txtMaxNumber->Text->Length == 0 || txtMinNumber->Text->Length == 0) {
 				is_right_generation_data = false;
-				text = "Значения для генерации не заданы";
+				text = "Задайте значения генерации";
 			}
 			else {
 				array_size = rrand(1, MAXARRAYSIZE);
