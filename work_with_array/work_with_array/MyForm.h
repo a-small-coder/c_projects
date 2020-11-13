@@ -974,7 +974,7 @@ namespace workwitharray {
 				e->Handled = true;
 			}
 		}
-		
+
 	}
 	};
 

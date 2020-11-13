@@ -150,6 +150,7 @@ namespace array {
 			this->txtMinNumber->Size = System::Drawing::Size(168, 22);
 			this->txtMinNumber->TabIndex = 5;
 			this->txtMinNumber->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->txtMinNumber->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::Input_KeyPress);
 			// 
 			// txtMaxNumber
 			// 
@@ -160,6 +161,7 @@ namespace array {
 			this->txtMaxNumber->Size = System::Drawing::Size(168, 22);
 			this->txtMaxNumber->TabIndex = 4;
 			this->txtMaxNumber->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->txtMaxNumber->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::Input_KeyPress);
 			// 
 			// txtArraySize
 			// 
@@ -170,6 +172,7 @@ namespace array {
 			this->txtArraySize->Size = System::Drawing::Size(168, 22);
 			this->txtArraySize->TabIndex = 3;
 			this->txtArraySize->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->txtArraySize->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::Input_KeyPress);
 			// 
 			// label3
 			// 
@@ -336,6 +339,7 @@ namespace array {
 			this->txtArray->Name = L"txtArray";
 			this->txtArray->Size = System::Drawing::Size(449, 22);
 			this->txtArray->TabIndex = 6;
+			this->txtArray->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::Input_KeyPress);
 			// 
 			// txtResult
 			// 
@@ -741,6 +745,30 @@ namespace array {
 		min_value = MINVALUE, max_value = MAXVALUE, array_size = 0;
 		array_str = "";
 		result_str = "";
+	}
+	private: System::Void Input_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		TextBox^ TextBoxField = safe_cast<TextBox^>(sender);
+		int len;
+		len = TextBoxField->Text->Length;
+		int ikey = e->KeyChar;
+		char ckey = e->KeyChar;
+		if (TextBoxField->Name != "txtArray") {
+			if (ckey != '\b' && (((ikey < 48 || ikey > 57) && ckey != '-') || (len == 3 && TextBoxField->Text->Contains("-")) || (len == 2 && !TextBoxField->Text->Contains("-")))) {
+				e->Handled = true;
+			}
+			if (ckey == '-' && TextBoxField->Text->Contains("-") || (len != 0 && ckey == '-')) {
+				e->Handled = true;
+			}
+			if (ckey != '\b' && (TextBoxField->Name == "txtArraySize" && (ckey == '-' || len == 2))) {
+				e->Handled = true;
+			}
+		}
+		else {
+			if (ckey != '\b' && ckey != '-' && ckey != ' ' && ckey != ';' && ckey != ',' && (ikey < 48 || ikey > 57)) {
+				e->Handled = true;
+			}
+		}
+
 	}
 };
 }

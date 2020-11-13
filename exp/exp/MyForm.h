@@ -439,9 +439,24 @@ namespace calc_exp {
 
 		}
 #pragma endregion
-	double inputNumber, eps = 0.1, summa, result, newNumber, factorial, round;
+	float inputNumber, eps = 0.1, summa, result, newNumber, factorial, round;
 	bool invalidInput = false;
 	int countSum;
+
+	String^ Convert_to_float_dot(float x) {
+		String^ x_str = Convert::ToString(x);
+		if (x_str->Contains("E")) {
+			int len = x_str->Length;
+			int E_index = x_str->IndexOf("E");
+			double man_x = Convert::ToDouble(x_str->Substring(0, E_index));
+			int x_ten_pow = Convert::ToInt32(x_str->Substring(E_index+1, len - E_index -1));
+			float new_x = man_x * pow(10, x_ten_pow);
+			return Convert::ToString(new_x);
+		}
+		else {
+			return x_str;
+		}
+	}
 
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		invalidInput = false;
@@ -452,27 +467,30 @@ namespace calc_exp {
 			}
 		}
 		catch (...) {
-			System::Windows::Forms::DialogResult result = MessageBox::Show("Неверное значение x", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			String^ text = "Неверное значение x\n Введите х от -13 до 20";
+			System::Windows::Forms::DialogResult result = MessageBox::Show(text, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			invalidInput = true;
 		}
 		if (!invalidInput) {
 			result = exp(inputNumber);
 			countSum = 1;
 			factorial = 1;
-			newNumber = 1;
-			summa = 0;
-			while (abs(result - summa) > eps/10) {
-
+			newNumber = 1.0;
+			summa = 0.0;
+			int i = 1;
+			newNumber = 1.0;
+			summa = 0.0;
+			while (fabs(newNumber) > eps)
+			{
 				summa += newNumber;
-				newNumber = pow(inputNumber, countSum) / factorial;
-				countSum += 1;
-				factorial *= countSum;
-
+				newNumber = newNumber * inputNumber / i;
+				i++;
 			}
-			round = 1 / eps ;
-			summa = floor((summa * round) + 0.5) / round;
-			result = floor(result * round) / round;
-			lblResult->Text = Convert::ToString(result);
+			countSum = i - 1;
+			round = 1 / eps * 10 ;
+			summa = floor((summa * round) + 0.5) / round ;
+			result = floor((result * round) + 0.5) / round; 
+			lblResult->Text = Convert_to_float_dot(result);
 			lblStartX->Text = Convert::ToString(inputNumber);
 			lblCount->Text = Convert::ToString(countSum);
 			lblSum->Text = Convert::ToString(summa);
@@ -509,7 +527,17 @@ namespace calc_exp {
 		if (ckey == '-' && TextBoxField->Text->Contains("-") || (len != 0 && ckey == '-')) {
 			e->Handled = true;
 		}
+		if (e->KeyChar == ',') {
 
+			if (len == 0) {
+				e->Handled = true;
+				TextBoxField->Text = "0,";
+			}
+			else if (TextBoxField->Text->Contains(",")) {
+				e->Handled = true;
+			}
+
+		}
 
 	}
 };
