@@ -1,0 +1,5 @@
+﻿  MyForm.cpp
+C:\Users\hulkt\source\repos\Individual_tasks\Individual_tasks\MyForm.h(1713,45): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\hulkt\source\repos\Individual_tasks\Individual_tasks\MyForm.h(1852,11): warning C4244: инициализация: преобразование "wchar_t" в "char", возможна потеря данных
+  MyForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  Individual_tasks.vcxproj -> C:\Users\hulkt\source\repos\Individual_tasks\Debug\Individual_tasks.exe

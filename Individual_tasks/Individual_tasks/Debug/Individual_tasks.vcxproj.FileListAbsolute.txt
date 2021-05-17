@@ -1,0 +1,3 @@
+C:\Users\hulkt\source\repos\Individual_tasks\Individual_tasks\Debug\Individual_tasks.vcxprojAssemblyReference.cache
+C:\Users\hulkt\source\repos\Individual_tasks\Individual_tasks\Debug\Individualtasks.MyForm.resources
+C:\Users\hulkt\source\repos\Individual_tasks\Individual_tasks\Debug\Individual_tasks.vcxproj.GenerateResource.cache
